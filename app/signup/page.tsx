@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CryptoJS from "crypto-js";
+import { sign } from "crypto";
 
 const Page = () => {
 
@@ -23,9 +24,10 @@ const Page = () => {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const password = CryptoJS.SHA256(signupData.password).toString();
-    console.log(signupData.email, password);
+    const temp = structuredClone(signupData);
+    temp.password = password;
     try {
-      const response = await fetch("api/signup", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(signupData)});
+      const response = await fetch("api/signup", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(temp)});
       const result = await response.json();
 
       if (response.ok) {
