@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
                     { status: 401 });
             }
             else {
-                return NextResponse.json({ success: false, message: "Database error" },
+                return NextResponse.json({ success: false, message: "Database connection error" },
                     { status: 500 });
             }
         }
